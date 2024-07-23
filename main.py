@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sys
 from course import course
 from grade_book import grade_book
@@ -23,15 +24,16 @@ def main():
         choice = input("Enter your choice (1-8): ")
 
         if choice == "1":
-            add_student()
+
+            grade_book.add_student()
         elif choice == "2":
-            add_course()
+            add_course() # type: ignore
         elif choice == "3":
-            register_student_for_course()
+            register_student_for_course() # type: ignore
         elif choice == "4":
-            calculate_ranking()
+            calculate_ranking() # type: ignore
         elif choice == "5":
-            search_by_grade()
+            search_by_grade() # type: ignore
         elif choice == "6":
             generate_transcript()
         elif choice == "8":
