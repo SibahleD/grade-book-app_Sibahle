@@ -5,6 +5,23 @@ class Student:
         self.names = names
         self.courses_registered = []
         self.GPA = 0.0
+
+    def to_dict(self):
+        """Convert the Student object to a dictionary."""
+        return {
+            'email': self.email,
+            'names': self.names,
+            'courses_registered': self.courses_registered,
+            'GPA': self.GPA
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        """Create a Student object from a dictionary."""
+        student = cls(data['email'], data['names'])
+        student.courses_registered = data.get('courses_registered', [])
+        student.GPA = data.get('GPA', 0.0)
+        return student
     
     def calculate_GPA(self):
         if not self.courses_registered:

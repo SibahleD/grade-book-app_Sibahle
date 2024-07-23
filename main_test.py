@@ -6,8 +6,11 @@ def exit_app():
     sys.exit()
 
 def main():
+    student_file = "students.json"
+    course_file = "courses.json"
+    reg_course_file = "reg_courses.json"
+    gradebook = GradeBook(student_file, course_file, reg_course_file)
     while True:
-        gradebook = GradeBook()
         print("\nChoose an action:")
         print("1. Add Student")
         print("2. Add Course")

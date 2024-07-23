@@ -1,0 +1,20 @@
+[
+    {
+        "email": "sibahle2@gmail.com",
+        "names": "Sibahle Dlamini",
+        "courses_registered": [],
+        "GPA": 0.0
+    },
+    {
+        "email": "wdlamini@alustudent.com",
+        "names": "Wakhile Dlamini",
+        "courses_registered": [],
+        "GPA": 0.0,
+        "courses": [
+            {
+                "course_name": "Intro to Python",
+                "grade": "10"
+            }
+        ]
+    }
+]
