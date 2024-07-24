@@ -1,25 +1,28 @@
 [
     {
-        "email": "sibahle2@gmail.com",
-        "names": "Sibahle Dlamini",
-        "courses_registered": [],
-        "GPA": 0,
-        "courses": []
-    },
-    {
-        "email": "wdlamini@alustudent.com",
-        "names": "Wakhile Dlamini",
-        "courses_registered": [],
-        "GPA": 3,
+        "email": "eldridge@alustudent.com",
+        "names": "Eldridge Prince",
         "courses": [
             {
-                "course_name": "E-Lab",
-                "grade": 40
+                "course_name": "Intro to Python",
+                "grade": 20
             },
             {
                 "course_name": "E-Lab",
-                "grade": 40
+                "grade": 45
             }
-        ]
+        ],
+        "GPA": 3.5
+    },
+    {
+        "email": "sdlamini2@alustudent.com",
+        "names": "Sibahle Dlamini",
+        "courses": [
+            {
+                "course_name": "Intro to SQL",
+                "grade": 20
+            }
+        ],
+        "GPA": 4
     }
 ]

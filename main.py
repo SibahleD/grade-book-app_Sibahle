@@ -35,7 +35,7 @@ def main():
         elif choice == "5":
             search_by_grade() # type: ignore
         elif choice == "6":
-            generate_transcript()
+            students.generate_transcript()
         elif choice == "8":
             exit_app()
         else:

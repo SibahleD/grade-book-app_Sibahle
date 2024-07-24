@@ -28,23 +28,11 @@ def main():
         elif choice == '3':
             gradebook.register_student_for_course()
         elif choice == '4':
-            ranking = GradeBook.calculate_ranking()
-            for idx, student in enumerate(ranking, start=1):
-                print(f"{idx}. {student.names} (GPA: {student.GPA:.2f})")
+            gradebook.calculate_ranking()
         elif choice == '5':
-            students = gradebook.search_by_grade()
-            for student in students:
-                print(f"{student.names} ({student.email})")
+            gradebook.search_by_grade()
         elif choice == '6':
-            email = input("Enter student's email: ")
-            transcript = gradebook.generate_transcript(email)
-            if transcript:
-                print(f"Transcript for {transcript['names']} ({transcript['email']}):")
-                for course_name, grade in transcript['courses']:
-                    print(f"{course_name}: {grade}")
-                print(f"GPA: {transcript['GPA']:.2f}")
-            else:
-                print("Student not found.")
+            gradebook.generate_transcript()
         elif choice == '7':
             exit_app()
 

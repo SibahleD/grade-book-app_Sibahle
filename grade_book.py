@@ -45,8 +45,8 @@ class GradeBook:
                 print("Email already exists")
                 print("Student not added successfully")
                 return
-        
-        # Initializing new info
+    
+        # Initializing variable to hold all data
         new_student = Student(new_email, new_names).__dict__  
 
         # Append new Student info
@@ -123,7 +123,7 @@ class GradeBook:
         student_courses = student.get('courses', [])
         student_courses.append({"course_name": course_name, "grade": grade})
         student['courses'] = student_courses
-        gpa = int(Student.calculate_GPA(self, grade, coursefile, studentfile, course_name))
+        gpa = Student.calculate_GPA(self, student_email, grade, course_name, coursefile, studentfile)
         print(f"Your GPA is: {gpa:.2f}")
         student['GPA'] = round(gpa, 2)
 
@@ -131,26 +131,73 @@ class GradeBook:
         print("Student registered successfully!")
  
     def calculate_ranking(self):
-        return sorted(self.student_list, key=lambda student: student.GPA, reverse=True)
+        students = self.loadjson(self.student_file)
+        # Sort students by GPA in descending order
+        sorted_students = sorted(students, key=lambda x: x['GPA'], reverse=True)
     
+         # Initialize rank
+        rank = 1
+        previous_gpa = None
+        previous_rank = None
+        for i, student in enumerate(sorted_students):
+            if student['GPA'] != previous_gpa:
+               student['rank'] = rank
+            else:
+                student['rank'] = previous_rank
+            previous_gpa = student['GPA']
+            previous_rank = student['rank']
+            rank += 1
+
+        print("Rankings of Students:")
+        print("{:<5} {:<20} {:<5} {:<5}".format("Rank", "Name", "GPA", ""))
+        
+        for student in sorted_students:
+            print("{:<5} {:<20} {:<5}".format(student['rank'], student['names'], student['GPA']))
+
     def search_by_grade(self):
+        students = self.loadjson(self.student_file)
+    
         course_name = input("Enter course name: ")
         grade = float(input("Enter grade: "))
-        students_with_grade = []
-        for student in self.student_list:
-            for course in student.courses_registered:
-                if course['course'].name == course_name and course['grade'] == grade:
-                    students_with_grade.append(student)
-        return students_with_grade
     
-    def generate_transcript(self, student_email):
-        student = next((s for s in self.student_list if s.email == student_email), None)
-        if not student:
-            return None
-        transcript = {
-            'email': student.email,
-            'names': student.names,
-            'courses': [(c['course'].name, c['grade']) for c in student.courses_registered],
-            'GPA': student.GPA
-        }
-        return transcript
+        search_result = []
+    
+        for student in students:
+            for course in student['courses']:
+                if course['course_name'] == course_name and course['grade'] == grade:
+                    search_result.append(student)
+    
+        # Return a list of students with the specified grade in the specified course
+        
+        if not search_result:
+            print('No record found')
+        
+        print("Students in {} with grade {}:".format(course_name, grade))
+        index = 0
+        for student in search_result:
+            index += 1
+            print("{}: {}".format(index, student['names']))
+            for course in student['courses']:
+                if course['course_name'] == course_name and course['grade'] == grade:
+                    print("  Course: {} \n  Grade: {}".format(course['course_name'], course['grade']))
+
+    def generate_transcript(self):
+        email = input("Enter student's email: ")
+        tran_students = self.loadjson(self.student_file)
+    
+        search_result = []
+    
+        for student in tran_students:
+            if student['email'] == email:
+                search_result.append(student)
+    
+        if not search_result:
+            print('No record found')
+        else:
+            # Assuming there's only one student with that email
+            student = search_result[0]
+            print("Name: {}".format(student['names']))
+            print("GPA: {}".format(student['GPA']))
+            for course in student['courses']:
+                print("  Course: {} \n  Grade: {}".format(course['course_name'], course['grade']))
+                print("")

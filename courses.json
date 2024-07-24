@@ -8,5 +8,10 @@
         "course_name": "E-Lab",
         "trimester": "Jan 2024",
         "credits": 50
+    },
+    {
+        "course_name": "Intro to SQL",
+        "trimester": "May 2024",
+        "credits": 30
     }
 ]
