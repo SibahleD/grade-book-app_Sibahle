@@ -3,5 +3,10 @@
         "course_name": "Intro to Python",
         "trimester": "May 2024",
         "credits": 20
+    },
+    {
+        "course_name": "E-Lab",
+        "trimester": "Jan 2024",
+        "credits": 50
     }
 ]

@@ -8,8 +8,7 @@ def exit_app():
 def main():
     student_file = "students.json"
     course_file = "courses.json"
-    reg_course_file = "reg_courses.json"
-    gradebook = GradeBook(student_file, course_file, reg_course_file)
+    gradebook = GradeBook(student_file, course_file)
     while True:
         print("\nChoose an action:")
         print("1. Add Student")
@@ -33,9 +32,7 @@ def main():
             for idx, student in enumerate(ranking, start=1):
                 print(f"{idx}. {student.names} (GPA: {student.GPA:.2f})")
         elif choice == '5':
-            course_name = input("Enter course name: ")
-            grade = float(input("Enter grade: "))
-            students = gradebook.search_by_grade(course_name, grade)
+            students = gradebook.search_by_grade()
             for student in students:
                 print(f"{student.names} ({student.email})")
         elif choice == '6':

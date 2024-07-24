@@ -4,11 +4,10 @@ import json
 from student import Student
 from course import Course
 class GradeBook:
-    def __init__(self, student_file, course_file, reg_course_file):
+    def __init__(self, student_file, course_file):
         self.student_file = student_file
-        self.course_file = course_file
-        self.reg_course_file = reg_course_file        
-        for file in [student_file, course_file, reg_course_file]:
+        self.course_file = course_file       
+        for file in [student_file, course_file]:
             if not os.path.exists(file):
                 open(file, "w").close()
         
@@ -96,45 +95,47 @@ class GradeBook:
             print("Invalid email format (must contain '@' and '.')")
             print("Student not added successfully")
             return
-
-        students = self.loadjson(self.student_file)
+        studentfile = self.loadjson(self.student_file)
         student = None
-        for e in students:
+        for e in studentfile:
             if e.get('email') == student_email:
                 student = e
                 break
-    
         if student is None:
             print("Email does not exist")
             return
 
         # Course validation  
         course_name = input("Enter course name: ")
-        courses = self.loadjson(self.course_file)
+        coursefile = self.loadjson(self.course_file)
         course = None
-        for c in courses:
+        for c in coursefile:
             if c.get('course_name') == course_name:
                 course = c
                 break
-    
         if course is None:
             print("Course does not exist")
             return
 
-        grade = input("Enter grade: ")
+        grade = int(input("Enter grade: "))
 
         # Adding record to file
         student_courses = student.get('courses', [])
         student_courses.append({"course_name": course_name, "grade": grade})
         student['courses'] = student_courses
-    
-        self.savejson(students, self.student_file)
-        print("Student registered successfully!")
+        gpa = int(Student.calculate_GPA(self, grade, coursefile, studentfile, course_name))
+        print(f"Your GPA is: {gpa:.2f}")
+        student['GPA'] = round(gpa, 2)
 
+        self.savejson(studentfile, self.student_file)
+        print("Student registered successfully!")
+ 
     def calculate_ranking(self):
         return sorted(self.student_list, key=lambda student: student.GPA, reverse=True)
     
-    def search_by_grade(self, course_name, grade):
+    def search_by_grade(self):
+        course_name = input("Enter course name: ")
+        grade = float(input("Enter grade: "))
         students_with_grade = []
         for student in self.student_list:
             for course in student.courses_registered:

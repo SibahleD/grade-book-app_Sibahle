@@ -3,34 +3,46 @@ class Student:
     def __init__(self, email, names):
         self.email = email
         self.names = names
-        self.courses_registered = []
-        self.GPA = 0.0
 
-    def to_dict(self):
-        """Convert the Student object to a dictionary."""
-        return {
-            'email': self.email,
-            'names': self.names,
-            'courses_registered': self.courses_registered,
-            'GPA': self.GPA
-        }
-
-    @classmethod
-    def from_dict(cls, data):
-        """Create a Student object from a dictionary."""
-        student = cls(data['email'], data['names'])
-        student.courses_registered = data.get('courses_registered', [])
-        student.GPA = data.get('GPA', 0.0)
-        return student
-    
-    def calculate_GPA(self):
-        if not self.courses_registered:
-            self.GPA = 0.0
+    def grade_to_points(grade):
+        if 90 <= grade <= 100:
+            return 4.0
+        elif 80 <= grade <= 89:
+            return 3.0
+        elif 70 <= grade <= 79:
+            return 2.0
+        elif 60 <= grade <= 69:
+            return 1.0
         else:
-            total_points = sum(course['grade'] * course['credits'] for course in self.courses_registered)
-            total_credits = sum(course['credits'] for course in self.courses_registered)
-            self.GPA = total_points / total_credits if total_credits > 0 else 0.0
+            return 0.0
     
-    def register_for_course(self, course, grade):
-        self.courses_registered.append({'course': course, 'grade': grade, 'credits': course.credits})
-        self.calculate_GPA()
+    def calculate_GPA(self, grade, courses, studentfile, cour_name):
+        total_points = 0
+        total_credits = 0
+
+        for course in courses:
+            course_name = course['course_name']
+            print(f'{course_name}')
+            credits = int(course['credits'])
+            print(f'Credits: {credits}')
+            if course_name in studentfile:
+                temp_grade = studentfile[course_name]
+            elif course_name == cour_name:
+                temp_grade = grade
+            else:
+                temp_grade = 0
+            percent = (int(temp_grade) / credits) * 100
+            print(f"Percent:{percent}")
+
+            points = Student.grade_to_points(percent)
+            print(f"Points: {points}")
+            total_points += points * credits
+            print(f"Total points: {total_points}")
+            if not total_points == 0:
+                total_credits += credits
+            print(f"Pending Credits: {total_credits}")    
+        if total_credits == 0:
+            return 0.0
+        print(f"Total Credits: {total_credits}")
+        gpa = total_points / total_credits
+        return gpa

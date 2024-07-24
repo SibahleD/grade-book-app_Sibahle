@@ -3,17 +3,22 @@
         "email": "sibahle2@gmail.com",
         "names": "Sibahle Dlamini",
         "courses_registered": [],
-        "GPA": 0.0
+        "GPA": 0,
+        "courses": []
     },
     {
         "email": "wdlamini@alustudent.com",
         "names": "Wakhile Dlamini",
         "courses_registered": [],
-        "GPA": 0.0,
+        "GPA": 3,
         "courses": [
             {
-                "course_name": "Intro to Python",
-                "grade": "10"
+                "course_name": "E-Lab",
+                "grade": 40
+            },
+            {
+                "course_name": "E-Lab",
+                "grade": 40
             }
         ]
     }
