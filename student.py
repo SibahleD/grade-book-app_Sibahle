@@ -48,21 +48,11 @@ class Student:
                         print(f"Course '{course_name}' not found in coursefile.")
                         continue
 
-                    print(f"Temp course: {temp_name}")
-                    print(f"Temp Grade: {temp_grade}")
-                    print(f'Credits: {temp_credit}')
-                
                     # Calculate percentage and GPA points
                     percent = (int(temp_grade) / temp_credit) * 100
-                    print(f"Percent: {percent}")
-
                     points = Student.grade_to_points(percent)
-                    print(f"Points: {points}")
-                
                     total_points += points * temp_credit
-                    print(f"Total points: {total_points}")
                     total_credits += temp_credit
-                    print(f"Total Credits: {total_credits}")
 
         # Avoid division by zero
         if total_credits == 0:

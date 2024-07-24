@@ -13,5 +13,10 @@
         "course_name": "Intro to SQL",
         "trimester": "May 2024",
         "credits": 30
+    },
+    {
+        "course_name": "Reflective Thinking",
+        "trimester": "Jan 2024",
+        "credits": 100
     }
 ]

@@ -24,5 +24,16 @@
             }
         ],
         "GPA": 4
+    },
+    {
+        "email": "johnsmith@gmail.com",
+        "names": "John Smith",
+        "courses": [
+            {
+                "course_name": "Reflective Thinking",
+                "grade": 83
+            }
+        ],
+        "GPA": 3.0
     }
 ]

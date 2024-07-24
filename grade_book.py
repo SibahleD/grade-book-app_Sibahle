@@ -124,7 +124,6 @@ class GradeBook:
         student_courses.append({"course_name": course_name, "grade": grade})
         student['courses'] = student_courses
         gpa = Student.calculate_GPA(self, student_email, grade, course_name, coursefile, studentfile)
-        print(f"Your GPA is: {gpa:.2f}")
         student['GPA'] = round(gpa, 2)
 
         self.savejson(studentfile, self.student_file)
